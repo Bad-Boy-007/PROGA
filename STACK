@@ -1,0 +1,23 @@
+﻿string txt = Console.ReadLine();
+Stack<char> stack = new Stack<char>();
+bool IsRight = false;
+char a;
+foreach (char c in txt)
+{
+    if (c == '}' || c == ')' || c == ']')
+    {
+        try { a = stack.Peek(); }
+        catch { stack.Push('n'); break; }
+
+        if (c == '}' && a == '{' || c == ')' && a == '(' || c == ']' && a == '[')
+        {
+            stack.Pop();
+            continue;
+        }
+        else { break; }
+    }
+    if (c == '(' || c == '[' || c == '{')
+        stack.Push(c);
+}
+if (stack.Count == 0) { IsRight = true; }
+Console.Write(IsRight);

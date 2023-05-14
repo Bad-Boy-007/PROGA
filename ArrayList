@@ -35,10 +35,12 @@ while (true)
         case "2":
             Console.WriteLine("Введите элементы, которые хотите добавить в коллекцию (чтобы прекратить ввод - введите пустую строку)");
             var extraArrList = new ArrayList();
+            
             for (string x = Console.ReadLine(); x != ""; x = Console.ReadLine())
             {
                 extraArrList.Add(x);
             }
+            
             arrList.AddRange(extraArrList);
             break;
         case "3":

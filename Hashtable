@@ -1,0 +1,93 @@
+using System;
+using System.IO;
+using System.Collections;
+
+void display(Hashtable htable, string name)
+{
+    Console.Write(name + ":");
+    foreach (var x in htable.Keys)
+    {
+        Console.Write("\t({0}, {1})", x, htable[x]);
+    }
+    Console.WriteLine();
+}
+var htable = new Hashtable();
+var extraHtable = new Hashtable();
+while (true)
+{
+    Console.WriteLine("Меню.\n");
+    Console.WriteLine("1. Добавить\n" +
+        "2. Очистить\n" +
+        "3. Содержит ключ\n" +
+        "4. Содержит значение\n" +
+        "5. Равно\n" +
+        "6. Удалить\n" +
+        "7. Взять Хэш\n" +
+        "8. Взять Тип");
+
+    string method = Console.ReadLine();
+    switch (method)
+    {
+        case "1":
+            {
+                Console.WriteLine("Введите элементы в виде ключ:значение");
+                var line = Console.ReadLine().Split(":");
+                htable.Add(line[0], line[1]);
+                break;
+            }
+        case "2":
+            {
+                htable.Clear();
+                break;
+            }
+        case "3":
+            {
+                Console.WriteLine("Укажите ключ");
+                Console.WriteLine(htable.ContainsValue(Console.ReadLine()));
+                break;
+            }
+        case "4":
+            {
+                Console.WriteLine("Введите значение");
+                Console.WriteLine(htable.ContainsValue(Console.ReadLine()));
+                break;
+            }
+        case "5":
+            {
+                Console.WriteLine("Добавьте элементы в дополнительный массив (key:value)");
+                for (string inputLine = Console.ReadLine(); inputLine != ""; inputLine = Console.ReadLine())
+                {
+                    string[] line = inputLine.Split(":");
+                    extraHtable.Add(line[0], line[1]);
+                }
+                Console.WriteLine(htable.Equals(extraHtable));
+                display(extraHtable, "extra htable");
+                break;
+            }
+        case "6":
+            {
+                Console.WriteLine("Укажите ключ");
+                htable.Remove(Console.ReadLine());
+                break;
+            }
+        case "7":
+            {
+                Console.WriteLine(htable.GetHashCode());
+                break;
+            }
+        case "8":
+            {
+                Console.WriteLine(htable.GetType());
+                break;
+            }
+        default:
+            {
+                Console.WriteLine("Что-то непонятное.");
+                break;
+            }
+    }
+    display(htable, "htable");
+    Console.WriteLine("Нажмите любую кнопку");
+    Console.ReadKey();
+    Console.Clear();
+}

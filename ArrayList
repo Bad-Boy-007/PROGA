@@ -69,7 +69,7 @@ while (true)
             arrList.Reverse();
             break;
         default:
-            Console.WriteLine("Что-то непонятное.");
+            Console.WriteLine("Такой опции нет");
             break;
     }
     display(arrList, "arrayList");

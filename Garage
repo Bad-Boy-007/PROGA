@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+
+Garage garage = new Garage();
+garage.AddCar(new Car { Model = "Pagani", Color = "White" });
+garage.AddCar(new Car { Model = "Mclaren", Color = "Orange" });
+CarWash carWash = new CarWash();
+Action<Car> washAction = carWash.WashCar; 
+foreach (Car car in garage.cars)
+{
+    washAction(car);
+}
+garage.WashAllCars();
+
+
+class Car
+{
+    public string Model { get; set; }
+    public string Color { get; set; }
+}
+
+
+class Garage
+{
+    public List<Car> cars = new List<Car>();
+    public void AddCar(Car car)
+    {
+        cars.Add(car);
+    }
+    public void WashAllCars()
+    {
+        Console.WriteLine("Моем все тачки в гараже:");
+        foreach (Car car in cars)
+        {
+            Console.WriteLine($"- {car.Color} {car.Model}");
+        }
+    }
+}
+
+
+class CarWash
+{
+    public void WashCar(Car car)
+    {
+        Console.WriteLine($"Washing {car.Color} {car.Model}");
+    }
+}

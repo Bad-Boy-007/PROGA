@@ -1,0 +1,99 @@
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
+void display(string[] queue, string name)
+{
+    Console.Write(name + ":");
+    for (int i = 0; i < queue.Length; i++)
+    {
+        Console.Write("\t{0}",queue[i]);
+    }
+    Console.WriteLine();
+}
+var queue = new Queue<string>();
+while (true)
+{
+    Console.WriteLine("Меню.\n");
+    Console.WriteLine(
+        "1. В очередь\n" +
+        "2. Не в очередь\n" +
+        "3. Пик\n" +
+        "4. Очистить\n" +
+        "5. Содержит\n" +
+        "6. В массив\n" +
+        "7. Try пик\n" +
+        "8. Try не в очередь\n" +
+        "9. Равно"
+        );
+    string method = Console.ReadLine();
+    switch(method)
+    {
+        case "1":
+            {
+                Console.WriteLine("Укажите элемент");
+                queue.Enqueue(Console.ReadLine());
+                break;
+            }
+        case "2":
+            {
+                if (queue.Count != 0)
+                    queue.Dequeue();
+                else
+                    Console.WriteLine("Стэк пустой");
+                break;
+            }
+        case "3":
+            {
+                if (queue.Count != 0)
+                    Console.WriteLine("Peek: {0}", queue.Peek());
+                else
+                    Console.WriteLine("Стэк пустой");
+                break;
+            }
+        case "4":
+            {
+                queue.Clear();
+                break;
+            }
+        case "5":
+            {
+                Console.WriteLine("Укажите элемент");
+                Console.WriteLine(queue.Contains(Console.ReadLine()));
+                break;
+            }
+        case "6":
+            {
+                Console.WriteLine("Тип полученного объекта: {0}", queue.ToArray().GetType());
+                break;
+            }
+        case "7":
+            {
+                Console.WriteLine(queue.TryPeek(out var result));
+                Console.WriteLine("Результат: {0}", result);
+                break;
+            }
+        case "8":
+            {
+                Console.WriteLine(queue.TryDequeue(out var result));
+                Console.WriteLine("Результат: {0}", result);
+                break;
+            }
+        case "9":
+            {
+                var newQueue = new Queue();
+                Console.WriteLine("Укажите элементы новой очереди");
+                for (string element = Console.ReadLine(); element != null; element = Console.ReadLine())
+                    newQueue.Enqueue(element);
+                Console.WriteLine(queue.Equals(newQueue));
+                break;
+            }
+        default:
+            {
+                Console.WriteLine("Что-то непонятное.");
+                break;
+            }
+    }
+    display(queue.ToArray(), "queue");
+    Console.WriteLine("Нажмите любую кнопку");
+    Console.ReadKey();
+    Console.Clear();
+}

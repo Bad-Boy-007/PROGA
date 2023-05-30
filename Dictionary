@@ -1,0 +1,98 @@
+using System;
+using System.Collections;
+
+void display(Dictionary<string, string> dict, string name)
+{
+    Console.Write(name + ":");
+    foreach (var x in dict.Keys)
+    {
+        Console.Write("\t({0} : {1})", x, dict[x]);
+    }
+    Console.WriteLine();
+}
+var dict = new Dictionary<string, string>();
+while (true)
+{
+    Console.WriteLine("Меню.\n");
+    Console.WriteLine(
+        "1. Добавить\n" +
+        "2. Убрать\n" +
+        "3. Попробовать добавить\n" +
+        "4. Попробовать получить значение\n" +
+        "5. Содержит ключ\n" +
+        "6. Содержит значение\n" +
+        "7. Очистить\n" +
+        "8. Трим Эксесс\n" +
+        "9. В строку");
+
+    string method = Console.ReadLine();
+    switch (method)
+    {
+        case "1":
+            {
+                Console.WriteLine("Введите ключ:значение");
+                var item = Console.ReadLine().Split(":");
+                dict.Add(item[0], item[1]);
+                break;
+            }
+        case "2":
+            {
+                Console.WriteLine("Укажите ключ");
+                dict.Remove(Console.ReadLine());
+                break;
+            }
+        case "3":
+            {
+                Console.WriteLine("Укажите ключ:значение");
+                var pair = Console.ReadLine().Split(":");
+                if (!dict.TryAdd(pair[0], pair[1]))
+                    Console.WriteLine("Пара с указанным ключом уже существует");
+                break;
+            }
+        case "4":
+            {
+                Console.WriteLine("Укажите ключ");
+                if (dict.TryGetValue(Console.ReadLine(), out string value))
+                    Console.WriteLine("value: {0}", value);
+                else
+                    Console.WriteLine("Пары с данным ключём не существует");
+                break;
+            }
+        case "5":
+            {
+                Console.WriteLine("Укажите ключ");
+                Console.WriteLine(dict.ContainsKey(Console.ReadLine()));
+                break;
+            }
+        case "6":
+            {
+                Console.WriteLine("Укажите значение");
+                Console.WriteLine(dict.ContainsValue(Console.ReadLine()));
+                break;
+            }
+        case "7":
+            {
+                dict.Clear();
+                break;
+            }
+        case "8":
+            {
+                dict.TrimExcess();
+                break;
+            }
+        case "9":
+            {
+                Console.WriteLine(dict.ToString());
+                break;
+            }
+        default:
+            {
+                Console.WriteLine("Что-то непонятное.");
+                break;
+            }
+    }
+    display(dict, "dictionary");
+    Console.WriteLine("Нажмите любую кнопку");
+    Console.ReadKey();
+    Console.Clear();
+}
